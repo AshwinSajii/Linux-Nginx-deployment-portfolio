@@ -1,37 +1,107 @@
-# ⚙️ Linux + Nginx Portfolio Website (Hosted on WSL)
 
-This project demonstrates how to **deploy a static HTML portfolio website using Nginx** on **Ubuntu WSL (Windows Subsystem for Linux)**. It includes setup, configuration, troubleshooting, and deployment steps — perfect for System Admins, DevOps learners, or anyone exploring Linux-based web hosting.
+# Linux & Nginx Portfolio Website
 
----
-
-## 🧠 Project Overview
-
-> A lightweight, dark-themed portfolio built with HTML + CSS and served using **Nginx** on a **WSL Ubuntu environment**.
-
-- 📁 Hosted locally via Nginx (WSL)  
-- 🎨 Built with semantic HTML, custom styling, and minimal assets  
-- ⚡ Under 5 KiB — optimized for fast loading  
-- 💼 Showcases skills in **Linux**, **Shell**, **Cloud**, and **SysAdmin tools**
+## Overview
+This is a simple, professional portfolio website built with HTML, styled with CSS for a dark theme, and served using **Nginx** on Linux or WSL environments. It showcases skills, projects, certifications, and contact info — optimized to be under 5KB for fast loading.
 
 ---
 
-## 🛠️ Technologies Used
+## How to Run Locally (Linux/WSL)
 
-| Area                | Stack/Tool                 |
-|---------------------|----------------------------|
-| OS Environment      | Ubuntu 22.04 (WSL 2)        |
-| Web Server          | Nginx                      |
-| Language            | HTML5, CSS3 (No frameworks)|
-| Hosting (Local)     | http://localhost           |
-| Optional            | Git, GitHub Pages (static) |
+### 1. Copy your `index.html` to the Nginx web root:
+```bash
+sudo cp ~/my-nginx-site/index.html /var/www/html/index.html
+````
 
----
-
-## 🏗️ Setup Instructions
-
-### 1. 🔧 Install Nginx on WSL
+### 2. Test Nginx configuration:
 
 ```bash
-sudo apt update
-sudo apt install nginx
-ps aux | grep nginx
+sudo nginx -t
+```
+
+### 3. Restart Nginx:
+
+```bash
+sudo systemctl restart nginx
+```
+
+### 4. Open your browser and go to:
+
+```
+http://localhost
+```
+
+---
+
+## Troubleshooting
+
+### 404 Not Found Error
+
+* Ensure your `index.html` is inside `/var/www/html/`
+* Check your Nginx config root path:
+
+  ```bash
+  cat /etc/nginx/sites-enabled/default | grep root
+  ```
+* Run `sudo nginx -t` to check syntax.
+* Restart Nginx after changes.
+
+### Nginx Bind Errors (`Address already in use`)
+
+* Check if port 80 is in use:
+
+  ```bash
+  sudo lsof -i :80
+  ```
+* Kill the process holding the port or stop conflicting services:
+
+  ```bash
+  sudo kill <PID>
+  ```
+* Then restart Nginx.
+
+### Changes Not Reflecting After Refresh
+
+* Clear your browser cache or do a hard reload (Ctrl+Shift+R or Cmd+Shift+R)
+* Confirm your `index.html` was updated in `/var/www/html/`
+
+---
+
+## WSL Tips
+
+* Run Nginx with `sudo` inside WSL.
+* Use `systemctl` commands or start Nginx manually:
+
+  ```bash
+  sudo nginx
+  ```
+* Access via `localhost` or `127.0.0.1` in your Windows browser.
+
+---
+
+## Author
+
+Ashwin Saji
+*System Administrator @ TCS*
+Cloud & AI Enthusiast | Linux & Shell Scripting Learner
+[GitHub](https://github.com/ashwinsajii) | [LinkedIn](https://www.linkedin.com/in/ashwinsajii)
+
+---
+
+## Future Ideas
+
+* Add dynamic content with JavaScript or backend (Node.js/PHP)
+* Automate deployment scripts with shell scripting
+* Integrate CI/CD pipelines for automated updates
+* Explore containerizing the app with Docker
+* Expand portfolio with more projects and certifications
+
+```
+
+That will create a `README.md` file with all the content you want.
+
+---
+
+If you want to do the **same** for your `index.html` file, just replace `README.md` with `index.html` and paste the HTML code inside the here-doc.  
+Want me to help with that too?
+```
